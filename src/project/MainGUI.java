@@ -27,6 +27,9 @@ public class MainGUI extends JFrame {
   // binary tree class
   BinaryTree binaryTree;
 
+  /**
+   * Graphical User Interface Constructor
+   */
   public MainGUI() {
     // setup main JFrame settings
     super("Binary Tree Categorizer");
@@ -58,82 +61,56 @@ public class MainGUI extends JFrame {
     isBalanced.addActionListener(
         e -> {
           // if there is no tree created show user friendly message
-          if (binaryTree == null) {
-            JOptionPane.showMessageDialog(
-                null,
-                "You must create a tree before interacting with this",
-                "No Tree Created",
-                JOptionPane.ERROR_MESSAGE);
-          } else { // else show whether the tree is balanced
+          if (binaryTree == null)
+            errorMessage("You must create a tree before interacting with this",
+                    "No Tree Created", 0);
+          else // display whether tree is balanced
             output.setText("" + binaryTree.isBalanced());
-          }
         });
     isFull.addActionListener(
         e -> {
           // if there is no tree created show user friendly message
-          if (binaryTree == null) {
-            JOptionPane.showMessageDialog(
-                null,
-                "You must create a tree before interacting with this",
-                "No Tree Created",
-                JOptionPane.ERROR_MESSAGE);
-          } else { // else show whether tree is full
+          if (binaryTree == null)
+            errorMessage("You must create a tree before interacting with this",
+                    "No Tree Created", 0);
+          else // display whether tree is full
             output.setText("" + binaryTree.isFull());
-          }
         });
     isProper.addActionListener(
         e -> {
           // if there is no tree created show user friendly message
-          if (binaryTree == null) {
-            JOptionPane.showMessageDialog(
-                null,
-                "You must create a tree before interacting with this",
-                "No Tree Created",
-                JOptionPane.ERROR_MESSAGE);
-          } else { // else show whether tree is proper
+          if (binaryTree == null)
+            errorMessage("You must create a tree before interacting with this",
+                    "No Tree Created", 0);
+          else // display whether tree is proper
             output.setText("" + binaryTree.isProper());
-          }
         });
     height.addActionListener(
         e -> {
           // if there is no tree created show user friendly message
-          if (binaryTree == null) {
-            JOptionPane.showMessageDialog(
-                null,
-                "You must create a tree before interacting with this",
-                "No Tree Created",
-                JOptionPane.ERROR_MESSAGE);
-          } else { // else show tree height
-            binaryTree.setLeftHeight(0);
-            binaryTree.setRightHeight(0);
+          if (binaryTree == null)
+            errorMessage("You must create a tree before interacting with this",
+                    "No Tree Created", 0);
+          else // display tree height
             output.setText("" + binaryTree.height());
-          }
         });
     nodes.addActionListener(
         e -> {
           // if there is no tree created show user friendly message
-          if (binaryTree == null) {
-            JOptionPane.showMessageDialog(
-                null,
-                "You must create a tree before interacting with this",
-                "No Tree Created",
-                JOptionPane.ERROR_MESSAGE);
-          } else { // else show number of nodes in tree
+          if (binaryTree == null)
+            errorMessage("You must create a tree before interacting with this",
+                    "No Tree Created", 0);
+          else // display number of nodes
             output.setText("" + binaryTree.nodes());
-          }
         });
     inorder.addActionListener(
         e -> {
           // if there is no tree created show user friendly message
-          if (binaryTree == null) {
-            JOptionPane.showMessageDialog(
-                null,
-                "You must create a tree before interacting with this",
-                "No Tree Created",
-                JOptionPane.ERROR_MESSAGE);
-          } else { // else show in order output of tree
+          if (binaryTree == null)
+            errorMessage("You must create a tree before interacting with this",
+                    "No Tree Created", 0);
+          else // display inorder output
             output.setText("" + binaryTree.inorder());
-          }
         });
   } // end MainGUI constructor
 
@@ -146,13 +123,20 @@ public class MainGUI extends JFrame {
       binaryTree = new BinaryTree(input.getText().trim());
       JOptionPane.showMessageDialog(null, "Tree Constructed");
     } catch (InvalidTreeSyntax ex) {
-      JOptionPane.showMessageDialog(
-          null,
-              "Invalid Tree Syntax: \n" + ex.getMessage() + "\n" + input.getText().trim(),
-              "Error Creating Tree",
-              JOptionPane.ERROR_MESSAGE);
+      errorMessage("Invalid Tree Syntax: \n" + ex.getMessage() + "\n" + input.getText().trim(),
+              "Error Creating Tree", 0);
     } // end try/catch block
   } // end makeTree method
+
+  /**
+   * Creates a JOptionPane error message
+   * @param message STRING message
+   * @param title STRING title of message
+   * @param messageType INTEGER message type
+   */
+  private void errorMessage(String message, String title, int messageType) {
+    JOptionPane.showMessageDialog(null, message, title, messageType);
+  } // end errorMessage method
 
   // main method
   public static void main(String[] args) {
